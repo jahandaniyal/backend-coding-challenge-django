@@ -38,4 +38,4 @@ install-dependencies:
 setup-project:
 	$(VENV)/bin/python manage.py makemigrations
 	$(VENV)/bin/python manage.py migrate
-	$(VENV)/bin/python manage.py loaddata usagetypes.json
+	$(VENV)/bin/python manage.py loaddata default_admin.json
