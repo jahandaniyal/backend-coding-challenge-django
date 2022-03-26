@@ -15,11 +15,11 @@ VENV := venv
 # venv is a shortcut target
 venv: $(VENV)/bin/activate
 
-run:
-	$(VENV)/bin/python manage.py runserver
+run-local:
+	cd app; ../$(VENV)/bin/python manage.py runserver
 
-testlocal: venv
-	.$(VENV)/bin/activate; pytest
+test-local: venv
+	. $(VENV)/bin/activate; cd app; pytest
 
 clean:
 	rm -rf $(VENV)
@@ -28,7 +28,7 @@ clean:
 env:
 	python3 -m venv $(VENV)
 
-build: env install-dependencies setup-project
+build-local: env install-dependencies setup-project
 	echo "Build Completed!"
 
 install-dependencies:
@@ -36,6 +36,6 @@ install-dependencies:
 	$(VENV)/bin/pip install -r requirements.txt
 
 setup-project:
-	$(VENV)/bin/python manage.py makemigrations
-	$(VENV)/bin/python manage.py migrate
-	$(VENV)/bin/python manage.py loaddata default_admin.json
+	cd app; ../$(VENV)/bin/python manage.py makemigrations
+	cd app; ../$(VENV)/bin/python manage.py migrate
+	cd app; ../$(VENV)/bin/python manage.py loaddata default_admin.json
